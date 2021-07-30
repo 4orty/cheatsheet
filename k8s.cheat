@@ -1,2 +1,7 @@
-# Get nodes with labels which currently used in sepcific namespace
-kubectl get pods -n <namespace> -o wide | awk 'NR==1 { for (i=1; i<=NF; ++i) if ($i=="NODE") { n=i; break }} { print $n }' | sed '1d' | sort | uniq -u | awk '$1!="\<none\>" {print $1}'| tr '\n' ' ' | sed 's/.$//' | xargs kubectl get nodes --show-labels
+# Get nodes with labels which currently used in specific namespace 
+echo "<used-nodes-in-namespace>" | sort | uniq | awk '$1!="\<none\>" {print $1}' 2>/dev/null | \
+    xargs kubectl get nodes --show-labels
+
+$ used-nodes-in-namespace : kubectl get pod -n <namespace> -o wide --- --header-lines 1 --column 7 --multi
+
+

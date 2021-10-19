@@ -1,3 +1,5 @@
+% 4orty k8s command cheat
+
 # Get nodes with labels which currently used in specific namespace 
 echo "<used-nodes-in-namespace>" | sort | uniq | awk '$1!="\<none\>" {print $1}' 2>/dev/null | \
     xargs kubectl get nodes --show-labels

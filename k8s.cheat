@@ -4,6 +4,10 @@
 echo "<used-nodes-in-namespace>" | sort | uniq | awk '$1!="\<none\>" {print $1}' 2>/dev/null | \
     xargs kubectl get nodes --show-labels
 
+# Get pods in specific node
+kubectl get pods --all-namespaces -o wide --field-selector spec.nodeName=<node>
+
+
 $ used-nodes-in-namespace : kubectl get pod -n <namespace> -o wide --- --header-lines 1 --column 7 --multi
 $ namespace : kubectl get namespace -o wide --- --header-lines 1 --column 1
-
+$ node : kubectl get nodes --- --header-lines 1 --column 1
